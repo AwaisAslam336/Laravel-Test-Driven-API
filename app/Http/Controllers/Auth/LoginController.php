@@ -19,7 +19,8 @@ class LoginController extends Controller
             return response('Credentials Not Match.',Response::HTTP_UNAUTHORIZED);
         }
         
-        return response(['token' => 'hello']);
+        $token = $user->createToken('api');
+        return response(['token' => $token->plainTextToken]);
     }
 
 }
