@@ -2,14 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\TodoList;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TodoListFactory extends Factory
+class LabelFactory extends Factory
 {
-
-    protected $model = TodoList::class;
     /**
      * Define the model's default state.
      *
@@ -18,8 +15,11 @@ class TodoListFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->sentence,
-            'user_id'=> function(){return User::factory()->create()->id;},
+            'title'=> $this->faker->word(3,true),
+            'color'=> $this->faker->colorName(),
+            'user_id'=> function(){
+                return User::factory()->create()->id;
+            }
         ];
     }
 }

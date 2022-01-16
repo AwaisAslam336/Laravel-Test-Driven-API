@@ -31,13 +31,17 @@ class TaskTest extends TestCase
     public function test_store_A_task_for_todo_list()
     {
         $list = $this->createTodoList();
+        $label = $this->createLabel();
         $task = Task::factory()->make();
         
-        $this->postJson(route('todo-list.task.store',$list->id),['title'=>$task->title])->assertCreated();
+        $this->postJson(route('todo-list.task.store',$list->id),[
+                                'title'=>$task->title,
+                                'label_id'=>$label->id])->assertCreated();
 
         $this->assertDatabaseHas('tasks',[
             'title'=>$task->title,
-            'todo_list_id'=>$list->id
+            'todo_list_id'=>$list->id,
+            'label_id'=>$label->id
         ]);
 
     }
